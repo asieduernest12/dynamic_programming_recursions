@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knights escaping problem</title>
+</head>
+<link rel="stylesheet" href="styles.css">
+<body>
+
+    <div class="window">
+        
+        <div class="col section_left">
+            <div class="col_form">
+                <h1 class="form_header">
+                    Knight's Escape ...Recursive
+                </h1>
+
+                <div class="form_inputs">
+                    <label for="nights_input_memod"></label>
+                    <input type="text" name="nights_input_memod" id="nights_input_recursive" placeholder="length,width,days,row,col,pr,pc" value="1,3,3,0,0">
+                    <div class="compute_and_results">
+                        <button class="form_compute_btn" onclick="findPath('recursive')">Find paths</button>
+                        <span class="computes compute_processing recursive hide">Processing....</span>
+                        <span class="computes compute_result recursive hide">Results</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col section_right">
+            <div class="col_form">
+                <h1 class="form_header">
+                    Knight's Escape ... Dynamic
+                </h1>
+
+                <div class="form_inputs">
+                    <label for="nights_input_dynamic"></label>
+                    <input type="text" name="nights_input_dynamic" id="nights_input_dynamic" placeholder="length,width,days,row,col,pr,pc" value="1,3,3,0,0">
+                    <div class="compute_and_results">
+                        <button class="form_compute_btn" onclick="findPath('dynamic')">Find paths</button>
+                        <span class="computes compute_processing dynamic hide">Processing....</span>
+                        <span class="computes compute_result dynamic hide">Results</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col section_right">
+            <div class="col_form">
+                <h1 class="form_header">
+                    Expresion max value ... recursion
+                </h1>
+
+                <div class="form_inputs">
+                    <label for="nights_input_expression"></label>
+                    <input type="text" name="nights_input_expression" id="nights_input_expression" placeholder="numbers,|operators," value="3,8,5,3,-6|*,-,-,*">
+                    <div class="compute_and_results">
+                        <button class="form_compute_btn" onclick="findPath('expression')">Find paths</button>
+                        <span class="computes compute_processing expression hide">Processing....</span>
+                        <span class="computes compute_result expression hide">Results</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
+
+<script src="script.js"></script>
