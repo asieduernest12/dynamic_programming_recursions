@@ -191,7 +191,7 @@ button.active {
     }
 
     .col {
-        height: 100vh;
+        min-height: 70vh;
         margin: 1em;
     }
 
