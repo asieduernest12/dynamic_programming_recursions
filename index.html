@@ -9,6 +9,18 @@
 <link rel="stylesheet" href="styles.css">
 <body>
 
+    <div class="switch-row">
+
+        <span class="logo">AlgoFun</span>
+
+        <!-- switch goes here -->
+       <div class="style_btns">
+           <button class="flexbox" onclick="setDisplayStyle('flexbox', this)">Css Flexbox</button>
+           <button class="Grid" onclick="setDisplayStyle('grid', this)">Css Grid</button>
+        </div>
+    </div>
+
+
     <div class="window">
         
         <div class="col section_left">
@@ -19,7 +31,7 @@
 
                 <div class="form_inputs">
                     <label for="nights_input_memod"></label>
-                    <input type="text" name="nights_input_memod" id="nights_input_recursive" placeholder="length,width,days,row,col,pr,pc" title="length,width,days,row,col,pr,pc" value="1,3,3,0,0">
+                    <input type="text" name="nights_input_memod" id="nights_input_recursive" placeholder="length,width,days,row,col,pr,pc" value="1,3,3,0,0">
                     <div class="compute_and_results">
                         <button class="form_compute_btn" onclick="findPath('recursive')">Find paths</button>
                         <span class="computes compute_processing recursive hide">Processing....</span>
@@ -36,7 +48,7 @@
 
                 <div class="form_inputs">
                     <label for="nights_input_dynamic"></label>
-                    <input type="text" name="nights_input_dynamic" id="nights_input_dynamic" placeholder="length,width,days,row,col,pr,pc" title="length,width,days,row,col,pr,pc" value="1,3,3,0,0">
+                    <input type="text" name="nights_input_dynamic" id="nights_input_dynamic" placeholder="length,width,days,row,col,pr,pc" value="1,3,3,0,0">
                     <div class="compute_and_results">
                         <button class="form_compute_btn" onclick="findPath('dynamic')">Find paths</button>
                         <span class="computes compute_processing dynamic hide">Processing....</span>
@@ -53,7 +65,7 @@
 
                 <div class="form_inputs">
                     <label for="nights_input_expression"></label>
-                    <input type="text" name="nights_input_expression" id="nights_input_expression" placeholder="numbers,|operators," title="numbers,|operators," value="3,8,5,3,-6|*,-,-,*">
+                    <input type="text" name="nights_input_expression" id="nights_input_expression" placeholder="numbers,|operators," value="3,8,5,3,-6|*,-,-,*">
                     <div class="compute_and_results">
                         <button class="form_compute_btn" onclick="findPath('expression')">Find paths</button>
                         <span class="computes compute_processing expression hide">Processing....</span>
