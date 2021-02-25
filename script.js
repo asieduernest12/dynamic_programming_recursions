@@ -66,7 +66,7 @@ function findPath(_type){
             _config.expression.result().classList.add('hide');
             var result = findExpressionMaxSum(_config.expression.input()[0].split(',').map(_ => Number(_)),_config.expression.input()[1].split(','));
             _config.expression.result().classList.remove('hide');
-            _config.expression.result().innerText = "Paths " + result.expr + ' =  ' + result.sum;
+            _config.expression.result().innerText = "" + result.expr + ' =  ' + result.sum;
             _config.expression.loader().classList.add('hide');
             break;
         }
