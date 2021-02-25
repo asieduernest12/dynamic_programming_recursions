@@ -1,243 +1,207 @@
-var _config = {
-    recursive: {
-        input: function(){
-            return document.querySelector("#nights_input_recursive").value.split(',').map(e => Number(e));
-        },
-        loader: function(){
-            return document.querySelector(".compute_processing.recursive");
-        },
-        result: function(){
-            return document.querySelector(".compute_result.recursive");
-        }
-    },
-    dynamic: {
-        input: function(){
-            return document.querySelector("#nights_input_dynamic").value.split(',').map(e => Number(e));
-        },
-        loader: function(){
-            return document.querySelector(".compute_processing.dynamic");
-        },
-        result: function(){
-            return document.querySelector(".compute_result.dynamic");
-        }
-    },
-    expression: {
-        input: function(){
-            return document.querySelector("#nights_input_expression").value.split('|');
-        },
-        loader: function(){
-            return document.querySelector(".compute_processing.expression");
-        },
-        result: function(){
-            return document.querySelector(".compute_result.expression");
-        }
-    }
+body * {
+    color: #122724;
 }
 
-var expected_params_count = 5;
-// generic findPath
-function findPath(_type){
-    console.log(_type);
+.window {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+}
 
-    switch(_type){
-        case 'dynamic': {
-            // debugger
-            _config.dynamic.loader().classList.remove('hide');
-            _config.dynamic.result().classList.add('hide');
-            var result = findPathDynamic(..._config.dynamic.input(),_config.dynamic.input()[3],_config.dynamic.input()[4],true,{});
-            _config.dynamic.result().classList.remove('hide');
-            _config.dynamic.result().innerText = "Paths " + result;
-            _config.dynamic.loader().classList.add('hide');
-            // debugger
-            break;
-        }
-        case 'recursive': {
-            // debugger
-            _config.recursive.loader().classList.remove('hide');
-            _config.recursive.result().classList.add('hide');
-            var result = findPathRecursive(..._config.recursive.input(),_config.recursive.input()[3],_config.recursive.input()[4],true);
-            _config.recursive.result().classList.remove('hide');
-            _config.recursive.result().innerText = "Paths " + result;
-            _config.recursive.loader().classList.add('hide');
-            break;
-        }
-        case 'expression': {
-            _config.expression.loader().classList.remove('hide');
-            _config.expression.result().classList.add('hide');
-            var result = findExpressionMaxSum(_config.expression.input()[0].split(',').map(_ => Number(_)),_config.expression.input()[1].split(','));
-            _config.expression.result().classList.remove('hide');
-            _config.expression.result().innerText = "Paths " + result.expr + ' =  ' + result.sum;
-            _config.expression.loader().classList.add('hide');
-            break;
-        }
-        default: {
-            console.log('default triggered');
-        }
-    }
+.col {
+    background: #c06f6f;
+    /* width: 48vw; */
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    -webkit-box-shadow: 2px 3px 12px 2px #000000;
+    box-shadow: 2px 3px 12px 2px #00000;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.col {
+    margin: 0 15px;
+}
+
+.col_form {
+    display:flex;
+    flex-direction: column;
+    margin:auto;
+    width: 70%;
+}
+
+.form_header {
+    color: #1d1414;
+    margin-bottom: 1em;
+}
+
+.form_inputs input {
+    width:100%;
+    font-size:1.2em;
+    display:block-inline;
+    height:3em;
+    border-radius: 4px;
+    border: none;
+}
+
+.compute_and_results {
+    margin-top: 1em;
+    /* border: 1px solid; */
+    height: 3em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form_compute_btn {
+    height: 100%;
+    width: 40%;
+    background: #9EE493;
+    border:none;
+    border-radius: 4px;
+    font-size: 1.3em;
+
+
 
 }
 
-
-function validateInput(inputs){
-    return inputs.length == expected_params_count;
-}
-
-function findPathRecursive(length, width, days, row,col,prow,pcol,start){
-    // debugger
-    if (length == 0 || width == 0) return 0;
-    // let _key = `${days},${row},${col},${prow},${pcol},${start}`;
-    // if ( _key in memo) return memo[_key];
-    if (days < 0) return 0
-    if (prow == row && pcol == col && !start) return 0;//move to
-    if ((col < 0 || col >= length || row < 0 || row >= width) && days >= 0){
-        return 1;//out of the grid
-    }
-
-//     left,right,up,down
-    var moves = findPathRecursive(length,width,days-1,row,col-1,row,col,false)+
-                findPathRecursive(length,width,days-1,row,col+1,row,col,false) +
-                findPathRecursive(length,width,days-1,row-1,col,row,col,false) +
-                findPathRecursive(length,width,days-1,row+1,col,row,col,false)+
-                findPathRecursive(length,width,days-1,row,col,row,col,false);
-  
-    return moves
+.computes {
+    background-color: #abc8c0;
+    height: 100%;
+    display: flex;
+    align-items:center;
+    width: 40%;
+    justify-content:center;
+    overflow: none;
     
-
 }
 
-function findPathDynamic(length, width, days, row,col,prow,pcol,start,memo){
-    
-    if (length == 0 || width == 0) return 0;
-    let _key = `${days},${row},${col},${prow},${pcol},${start}`;
-    if ( _key in memo) return memo[_key];
-    if (days < 0) return 0
-    if (prow == row && pcol == col && !start) return 0;//move to
-    if ((col < 0 || col >= length || row < 0 || row >= width) && days >= 0){
-        return 1;//out of the grid
+.compute_processing {
+    animation: ripple 700ms ease-in 1ms infinite alternate;
+}
+
+
+.compute_result.expression {
+    width: auto;
+    padding: 0 1.3em;
+}
+@keyframes ripple {
+    from {
+        opacity: 0;
     }
 
-//     left,right,up,down
-    var moves = findPathDynamic(length,width,days-1,row,col-1,row,col,false,memo)+
-                findPathDynamic(length,width,days-1,row,col+1,row,col,false,memo) +
-                findPathDynamic(length,width,days-1,row-1,col,row,col,false,memo) +
-                findPathDynamic(length,width,days-1,row+1,col,row,col,false,memo)+
-                findPathDynamic(length,width,days-1,row,col,row,col,false,memo);
-    memo[_key] = moves;
-    // debugger
-    return memo[_key]
+}
 
+.hide {
+    display:none;
+}
+
+
+
+body {
+    padding: 1em;
+    height: 94vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1em;
+    height: 5vh;
+}
+
+.logo {
+    font-size: 2em;
+    color: #0a2463;
+}
+
+
+.style_btns {
+    display: inherit;
+    height: 100%;
+}
+
+button.Grid, button.flexbox {
+    border: none;
+    margin-left: 1em;
+    background-color: #E2E2E2;
+    border-radius: 4px;
+    transition: color 200ms, background-color 200ms;
     
+}
+
+button.active {
+    background-color: #c06f6f;
+    color: white;
 
 }
 
-function findExpressionMaxSum(_digits,_operators){
-    if (_operators.length == 1 && _digits.length ==2) {
-        return { 
-            expr: expressionToString(_digits,_operators),
-            sum: evaluateSum(_digits, _operators)
-        }
+.window.grid {
+    display: grid;
+    height: 100%;
+    grid-gap: 1em;
+    grid-template-columns: 32% 32% 32%;
+    grid-template-rows: 49% 49%;
+    
+}
+
+.window.grid .col {
+    height: 99%;
+    /*     width: auto; */
+    /*     margin: 0.5em 1em; */
+}
+
+.window.grid .col:nth-child(1) {
+    grid-column-start:1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end:2;
+}
+
+.window.grid .col:nth-child(2) {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    /*     grid-row-end: 1; */
+}
+
+.window.grid .col:nth-child(3) {
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 4;;
+}
+
+
+.col {
+    transition: all 200ms;
+}
+
+
+@media only screen and (max-width: 750px) {
+    .window {
+        display: flex;
+        flex-direction: column;
     }
 
-    var max;
-
-    for( const[_key,_value] of Object.entries(_operators)){
-
-        var reduce_digits = _digits.filter((_d,_index)=>{
-            // debugger
-           return _index != Number(_key)+1;
-        });
-
-        var transformed_digits = reduce_digits.map((_d,_index)=>{
-            if (_index != Number(_key)) return _d;
-            else return { 
-                expr: expressionToString([_digits[_key],_digits[Number(_key)+1]],[_operators[_key]]),
-                sum: evaluateSum([_digits[_key],_digits[Number(_key)+1]], [_operators[_key]])
-            }
-        });
-
-        var reduced_operators = _operators.filter((_op,_index)=>{
-            // debugger
-            if(_index !=Number( _key)) return _op;
-        })
-
-
-        var result = findExpressionMaxSum(transformed_digits,reduced_operators)
-
-        if (!Number(_key)){
-             max = result;
-            }
-        else 
-            if (max.sum < result.sum) max = result;
-
-        // console.log('results for',result);
+    .col {
+        height: 100vh;
+        margin: 1em;
     }
 
-    console.log('Max value is ',max);
-    return max;
+   .window.grid {
+       display: flex;
+       
+   } 
+
+   .style_btns {
+       visibility: hidden;
+   }
 
 }
-
-function evaluateSum(_digits,_operators){
-    var _digits = _digits.map((_) =>{
-        return Number.isInteger(_)? _ : _.sum
-    });
-    switch (_operators[0]){
-        case '-':{
-            return _digits[0] - _digits[1]
-            break;
-        }
-        case '+':{
-            return _digits[0] + _digits[1]
-            break;
-        }
-        case '*':{
-            return _digits[0] * _digits[1]
-            break;
-        }
-        case '/':{
-            return _digits[0] / _digits[1]
-            break;
-        }
-    }
-}
-
-function expressionToString(_digits,_operators){
-    var __digits = _digits.map(_ => {
-       if (Number.isInteger(_)){
-            if (_ >=0) return ''+_; 
-            else return `(${_})`
-        }
-        else
-            return _.expr
-    });
-
-    return `(${__digits[0]} ${_operators[0]} ${__digits[1]})`;
-}
-
-
-(function(){
-    console.log('testign')
-//testing 
-var tests = 0,passed = 0;
-
-function assertEquals(expected,returned){
-    console.log(`assertingEquals expected`,expected,' returned',returned);
-    tests++;
-    expected == returned ? passed++: null;
-}
-
-function runtest(){
-
-    //[1,-2],[-] 3
-    assertEquals(3,evaluateSum([1,-2],['-']))
-    
-    //[1,{expr: '1 + 1',sum: 2}],[-] -1
-    assertEquals(-1,evaluateSum([1,{expr: '(1 + 1)',sum: 2}],['-']))
-
-    assertEquals('(1 - (1 + 1))', expressionToString([1,{expr: '(1 + 1)',sum: 2}],['-']))
-    
-    console.log('states Test: ',tests,' passed: ',passed);
-}
-
-runtest();
-})();
